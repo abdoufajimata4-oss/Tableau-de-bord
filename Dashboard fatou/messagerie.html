@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="D.css">
+</head>
+<body>
+    <div class="messagerie-section">
+
+    <div class="messagerie-header">
+        <h2>Messagerie</h2>
+        <span class="pending">3 messages non lus</span>
+    </div>
+
+    <div class="messages-list">
+
+        <div class="message-card unread">
+            <div class="message-avatar">JD</div>
+            <div class="message-content">
+                <div class="message-top">
+                    <h4>Jean Dupont</h4>
+                    <span class="message-date">Il y a 1 jrs</span>
+                </div>
+                <p>Bonjour, je souhaiterais faire des achats d'un bon nombre de robes pour ma famille à l'occasion du mariage de ma petite soeur. 
+                cependant j'aimerais que vous me fassiez une réduction car comme vous le saviez je suis un client fidèle et ma femme aussi. <br>
+                Merci.</p>
+            </div>
+            <div class="message-actions">
+                <button onclick="reply(this)">Répondre</button>
+                <button onclick="markAsRead(this)">Marquer comme lu</button>
+            </div>
+        
+        </div>
+
+        <div class="message-card unread">
+            <div class="message-avatar">SA</div>
+            <div class="message-content">
+                <div class="message-top">
+                    <h4>Sossou Angela</h4>
+                    <span class="message-date">Il y a 20 min</span>
+                </div>
+                <p>Bonjour madame comment allez-vous? <br>
+                    j'ai effectué une commande chez vous hier j'ai même été livré mais j'ai malheureusement perdu la version electronique de ma facture.
+                Je vous prie de bien vouloir me la renvoillée. Merci</p>
+            </div>
+            <div class="message-actions">
+                <button onclick="reply(this)">Répondre</button>
+                <button onclick="markAsRead(this)">Marquer comme lu</button>
+            </div>
+        </div>
+
+        <div class="message-card">
+            <div class="message-avatar">Ky</div>
+            <div class="message-content">
+                <div class="message-top">
+                    <h4>Klassou y</h4>
+                    <span class="message-date">Hier</span>
+                </div>
+                <p>Bonjour madame j'ai bien reçu ma commande Merci 👍</p>
+            </div>
+            <div class="message-actions">
+                <button onclick="reply(this)">Répondre</button>
+                <button onclick="markAsRead(this)">Marquer comme lu</button>
+            </div>
+        </div>
+
+        <div class="message-card unread">
+            <div class="message-avatar">AP</div>
+            <div class="message-content">
+                <div class="message-top">
+                    <h4>Amavi paul</h4>
+                    <span class="message-date">Hier</span>
+                </div>
+                <p>Quand aura lieu la prochaine reduction ?</p>
+            </div>
+            <div class="message-actions">
+                <button onclick="reply(this)">Répondre</button>
+                <button onclick="markAsRead(this)">Marquer comme lu</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

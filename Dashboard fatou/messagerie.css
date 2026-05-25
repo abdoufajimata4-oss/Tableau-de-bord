@@ -1,0 +1,10 @@
+:root{
+    --white: #fff;
+    --box-shadow-card: 8px 8px 32px var(--desaturate-fuscha);
+    --fuscha:hsl(334, 94%, 57%);
+    --light-blue: #bbeef1;
+    --pinkless: #fff3e0;
+    --desaturate-fuscha:hsla(334, 94%, 57%, 0.15);
+}
+/*--------La partie messagerie--------*/
+

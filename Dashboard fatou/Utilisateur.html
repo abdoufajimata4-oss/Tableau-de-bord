@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+.titre{
+    margin-top: 2rem;
+}
+
+body {
+    background-color: #f4f6f9;
+    display: flex;
+    min-height: 100vh;
+    color: #333;
+}
+
+.main {
+    flex: 1;
+    padding: 20px 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.search-box {
+    background: #ffffff;
+    padding: 14px 16px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    align-items: center;
+}
+
+.search-box input,
+.search-box select {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    font-size: 0.925rem;
+    transition: border-color 0.2s ease;
+}
+
+.search-box input:focus,
+.search-box select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px #2563eb;
+}
+
+.search-box button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.925rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.search-box button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.table-container {
+    margin-top: 24px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.925rem;
+}
+
+th, td {
+    padding: 12px 12px;
+    text-align: left;
+}
+
+th {
+    background: #f1f5f9;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+tbody tr:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+ }
+
+.active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.blocked {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.actions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.825rem;
+    font-weight: 500;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.actions button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.edit {
+    background: #fbbf24;
+    color: #78350f;
+}
+
+.delete {
+    background: #ef4444;
+    color: white;
+}
+
+.block {
+    background: #6b7280;
+    color: white;
+}
+
+.message {
+    background: #10b981;
+    color: white;
+}
+
+.profile-card {
+    margin-top: 30px;
+    background: #ffffff;
+    padding: 18px 20px;
+    border-radius: 10px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.profile-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e2e8f0;
+}
+
+.profile-info h3 {
+    margin-bottom: 8px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.profile-info p {
+margin-bottom: 5px;
+font-size: 0.875rem;
+color: #4b5563;
+}
+
+.profile-info p:last-child {
+    color: #6b7280;
+    font-size: 0.825rem;
+}
+
+.filtered-out {
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+            <h1>Gestion des Utilisateurs</h1>
+        </header>
+
+        <!-- SEARCH + FILTRES -->
+        <section class="search-box">
+            <input type="text" id="searchInput" placeholder="Rechercher nom ou email…" />
+            <select id="roleFilter">
+                <option value="">Tous les rôles</option>
+                <option value="Admin">Admin</option>
+                <option value="Client">Client</option>
+                <option value="Modérateur">Modérateur</option>
+            </select>
+            <select id="statusFilter">
+                <option value="">Statut</option>
+                <option value="Actif">Actif</option>
+                <option value="Bloqué">Bloqué</option>
+            </select>
+            <button id="searchBtn">Rechercher</button>
+        </section>
+
+        <!-- TABLEAU DES UTILISATEURS -->
+        <section class="table-container">
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Rôle</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-name="Jean Dupont" data-email="jean@email.com" data-role="Client" data-status="Actif">
+                        <td>Jean Dupont</td>
+                        <td>jean@email.com</td>
+                        <td>Client</td>
+                        <td><span class="status active">Actif</span></td>
+                        <td class="actions">
+                            <button class="edit">Modifier</button>
+                            <button class="delete">Supprimer</button>
+                            <button class="block">Bloquer</button>
+                            <button class="message">Message</button>
+                        </td>
+                    </tr>
+                    <tr data-name="DjaDjou Florent" data-email="XXFlo@gmail.com" data-role="Client" data-status="Bloqué">
+                        <td>DjaDjou Florent</td>
+                        <td>XXFlo@gmail.com</td>
+                        <td>Client</td>
+                        <td><span class="status blocked">Bloqué</span></td>
+                        <td class="actions">
+                            <button class="edit">Modifier</button>
+                            <button class="delete">Supprimer</button>
+                            <button class="block">Bloquer</button>
+                            <button class="message">Message</button>
+                        </td>
+                    </tr>
+                    <tr data-name="Sossou Angela" data-email="ange@gmail.com" data-role="Client" data-status="Actif">
+                        <td>Sossou Angela</td>
+                        <td>ange@gmail.com</td>
+                        <td>Client</td>
+                        <td><span class="status active">Actif</span></td>
+                        <td class="actions">
+                            <button class="edit">Modifier</button>
+                            <button class="delete">Supprimer</button>
+                            <button class="block">Bloquer</button>
+                            <button class="message">Message</button>
+                        </td>
+                    </tr>
+                    <tr data-name="Nadinga Antoinette" data-email="antou@email.com" data-role="Admin" data-status="Actif">
+                        <td>Nadinga Antoinette</td>
+                        <td>antou@email.com</td>
+                        <td>Admin</td>
+                        <td><span class="status active">Actif</span></td>
+                        <td class="actions">
+                            <button class="edit">Modifier</button>
+                            <button class="delete">Supprimer</button>
+                            <button class="block">Bloquer</button>
+                            <button class="message">Message</button>
+                        </td>
+                    </tr>
+                    <tr data-name="ABDOU Fajimata" data-email="fajimataa@outlook.fr" data-role="Admin" data-status="Actif">
+                        <td>ABDOU Fajimata</td>
+                        <td>fajimataa@outlook.fr</td>
+                        <td>Admin</td>
+                        <td><span class="status active">Actif</span></td>
+                        <td class="actions">
+                            <button class="edit">Modifier</button>
+                            <button class="delete">Supprimer</button>
+                            <button class="block">Bloquer</button>
+                            <button class="message">Message</button>
+                        </td>
+                    </tr>
+                    <tr data-name="Klassou y" data-email="Ylove@gmail.com" data-role="Client" data-status="Actif">
+                        <td>Klassou y</td>
+                        <td>Ylove@gmail.com</td>
+                        <td>Client</td>
+                        <td><span class="status active">Actif</span></td>
+                        <td class="actions">
+                            <button class="edit">Modifier</button>
+                            <button class="delete">Supprimer</button>
+                            <button class="block">Bloquer</button>
+                            <button class="message">Message</button>
+                        </td>
+                    </tr>
+                    <tr data-name="Amavi paul" data-email="Paul@yahoo.fr" data-role="Client" data-status="Actif">
+                        <td>Amavi paul</td>
+                        <td>Paul@yahoo.fr</td>
+                        <td>Client</td>
+                        <td><span class="status active">Actif</span></td>
+                        <td class="actions">
+                            <button class="edit">Modifier</button>
+                            <button class="delete">Supprimer</button>
+                            <button class="block">Bloquer</button>
+                            <button class="message">Message</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <h2 class="titre">Récents</h2>
+
+        <!-- PROFILS -->
+        <section class="profile-card">
+            <img src="https://i.pravatar.cc/150?img=3" alt="Jean Dupont" />
+            <div class="profile-info">
+                <h3>Jean Dupont</h3>
+                <p>Email : jean@email.com</p>
+                <p>Rôle : Client</p>
+                <p>Statut : Actif</p>
+                <p>Date d'inscription : 12/01/2024</p>
+            </div>
+        </section>
+
+        <section class="profile-card">
+            <img src="Assets/an.jpg" alt="Sossou Angela" />
+            <div class="profile-info">
+                <h3>Sossou Angela</h3>
+                <p>Email : ange@gmail.com</p>
+                <p>Rôle : Client</p>
+                <p>Statut : Actif</p>
+                <p>Date d'inscription : 10/02/2025</p>
+            </div>
+        </section>
+
+        <section class="profile-card">
+            <img src="Assets/ant.jpg" alt="Nadinga Antoinette" />
+            <div class="profile-info">
+                <h3>Nadinga Antoinette</h3>
+                <p>Email : antou@email.com</p>
+                <p>Rôle : Admin</p>
+                <p>Statut : Actif</p>
+                <p>Date d'inscription : 01/06/2020</p>
+            </div>
+        </section>
+
+        <section class="profile-card">
+            <img src="Assets/fa.jpg" alt="ABDOU Fajimata" />
+            <div class="profile-info">
+                <h3>ABDOU Fajimata</h3>
+                <p>Email : fajimataa@outlook.fr</p>
+                <p>Rôle : Admin</p>
+                <p>Statut : Actif</p>
+                <p>Date d'inscription : 01/06/2020</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT -->
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const roleFilter = document.getElementById("roleFilter");
+        const statusFilter = document.getElementById("statusFilter");
+        const searchBtn = document.getElementById("searchBtn");
+        const tableBody = document.getElementById("usersTable").querySelector("tbody");
+        const rows = tableBody.querySelectorAll("tr");
+
+        function filterUsers() {
+            const searchValue = searchInput.value.trim().toLowerCase();
+            const roleValue = roleFilter.value;
+            const statusValue = statusFilter.value;
+
+            rows.forEach(row => {
+                const name = row.getAttribute("data-name").toLowerCase();
+                const email = row.getAttribute("data-email").toLowerCase();
+                const role = row.getAttribute("data-role");
+                const status = row.getAttribute("data-status");
+
+                const matchesSearch =
+                    name.includes(searchValue) || email.includes(searchValue);
+                const matchesRole = roleValue === "" || role === roleValue;
+                const matchesStatus = statusValue === "" || status === statusValue;
+
+                if (matchesSearch && matchesRole && matchesStatus) {
+                    row.classList.remove("filtered-out");
+                } else {
+                    row.classList.add("filtered-out");
+                }
+            });
+        }
+
+        searchBtn.addEventListener("click", filterUsers);
+        searchInput.addEventListener("input", filterUsers);
+        roleFilter.addEventListener("change", filterUsers);
+        statusFilter.addEventListener("change", filterUsers);
+
+        // Exemple: action "Bloquer" pour changer le statut
+        rows.forEach(row => {
+            const blockBtn = row.querySelector(".block");
+            const statusSpan = row.querySelector(".status");
+
+            blockBtn.addEventListener("click", () => {
+                if (statusSpan.classList.contains("active")) {
+                    statusSpan.classList.remove("active");
+                    statusSpan.classList.add("blocked");
+                    statusSpan.textContent = "Bloqué";
+                    row.setAttribute("data-status", "Bloqué");
+                } else {
+                    statusSpan.classList.remove("blocked");
+                    statusSpan.classList.add("active");
+                    statusSpan.textContent = "Actif";
+                    row.setAttribute("data-status", "Actif");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="D.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+</head>
+<body>
+    <header class="top-header">
+        <button class="menu-toggle" aria-label="Ouvrir le menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="aside-header">
+                <div class="logo">
+                    <img src="Assets/logo dash.png" alt="logo_fatou">
+                </div>
+            </div>
+            <ul class="list-items">
+                <li class="item">
+                    <a href="D.html">
+                        <span class="material-symbols-outlined">
+                            home
+                        </span>
+                        <span>Acceuil</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="Utilisateur.html">
+                        <span class="material-symbols-outlined">
+                            groups
+                        </span>
+                        <span>Utilisateurs</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="messagerie.html">
+                        <span class="material-symbols-outlined">
+                            sms
+                        </span>
+                        <span>Messagerie</span>
+                        <span class="message-count">3</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="Statistique.html">
+                        <span class="material-symbols-outlined">
+                            auto_graph
+                        </span>
+                        <span>Statistiques</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="D.html">
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                        <span>deconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+    
+        <!-- PRODUCTS -->
+        <section class="recent-order">
+            <div class="ro-title">
+                <h2>Commandes Récentes</h2>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>id-com</th>
+                        <th>Produit</th>
+                        <th>Nom du client</th>
+                        <th>Montant</th>
+                        <th>Méthode de paiement</th>
+                        <th>Statut de la commande</th>
+                        <th>délai</th>
+                        <th>Addresse de Livraison</th>
+                    </tr>  
+                </thead>    
+
+                <tbody>
+                        <tr>
+                            <td>14</td>
+                            <td>Pantalon Oversize</td>
+                            <td>Akim A.</td>
+                            <td>65.000 f</td>
+                            <td class="text-fuscha">Virement</td>
+                            <td>Non payé</td>
+                            <td>3jrs restants</td>
+                            <td>Agoe Zongo</td>
+                        </tr>
+                        <tr>
+                            <td>21</td>
+                            <td>Robe de soirée</td>
+                            <td>Hillary Zondo</td>
+                            <td>150.000 f</td>
+                            <td class="text-fuscha">PayPal</td>
+                            <td>Non payé</td>
+                            <td>1jrs restants</td>
+                            <td>La caisse</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Saccoche Gucci</td>
+                            <td>Maxime Gbana</td>
+                            <td>21.500 f</td>
+                            <td class="text-fuscha">Virement</td>
+                            <td>Payé</td>
+                            <td>10jrs restants</td>
+                            <td>Nyékonakpoè</td>
+                        </tr> 
+                        <tr>
+                            <td>17</td>
+                            <td>haut</td>
+                            <td>yvette Bedrah</td>
+                            <td>18.000 f</td>
+                            <td class="text-fuscha">Espèce</td>
+                            <td>payé</td>
+                            <td>Livré</td>
+                            <td>Dagué</td>
+                        </tr> 
+                </tbody>
+            </table>
+            <div class="top-clients-inline" >
+    
+                <div class="top-client-card">
+                    <span>1</span>
+                    <h4>Hillary Zondo</h4>
+                    <p>450.000 f</p>
+                </div>
+
+                <div class="top-client-card">
+                    <span>2</span>
+                    <h4>Akim A.</h4>
+                    <p>320.000 f</p>
+                </div>
+
+                <div class="top-client-card">
+                    <span>3</span>
+                    <h4>Maxime Gbana</h4>
+                    <p>280.000 f</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="D.js"></script>
+</body>
+</html>
